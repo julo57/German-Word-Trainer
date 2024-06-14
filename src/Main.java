@@ -1,15 +1,18 @@
 package src;
 
+import src.GUI.GUIMainMenu;
+
+import src.GUI.Controlers;
+
 public class Main {
     public static void main(String[] args) {
-        // Tworzenie tabeli w bazie danych
+        // Initialize the database connection and create tables
         DatabaseConnection.createNewTable();
 
-        
+        // Initialize Controlers
+        Controlers controlers = new Controlers();
 
-     
-
-        // Tworzenie instancji SimpleGUI
-        new SimpleGUI();
+        // Initialize the GUI main menu
+        new GUIMainMenu(controlers);
     }
 }

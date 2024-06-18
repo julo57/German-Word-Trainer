@@ -1,4 +1,5 @@
 package src;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +31,18 @@ public class DatabaseOperations {
                 System.out.println(rs.getInt("id") + "\t" +
                                    rs.getString("name"));
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteTable() {
+        String sql = "DROP TABLE IF EXISTS users";
+
+        try (Connection conn = DatabaseConnection.connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Tabela 'users' została usunięta.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

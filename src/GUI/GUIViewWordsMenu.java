@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import src.DatabaseOperations;
 
 public class GUIViewWordsMenu extends JFrame {
+    private DatabaseOperations databaseOperations = new DatabaseOperations();
     private Controlers controlers;
     private JList<String> tableList;
     private JTable table;
@@ -111,14 +113,14 @@ public class GUIViewWordsMenu extends JFrame {
         String selectedTable = tableList.getSelectedValue();
         int selectedRow = table.getSelectedRow();
         if (selectedTable != null && selectedRow != -1) {
-            String selectedWord = (String) table.getValueAt(selectedRow, 1); // Assuming word is in the second column
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the word: " + selectedWord + "?", "Delete Word", JOptionPane.YES_NO_OPTION);
+            String selectedId = table.getValueAt(selectedRow, 0).toString(); // Pobieranie id z pierwszej kolumny jako String
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the entry with ID: " + selectedId + "?", "Delete Entry", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                controlers.deleteWord(selectedTable, selectedWord);
-                refreshTableContents(selectedTable); // Refresh table contents
+                databaseOperations.deleteRowFromTable(selectedTable, selectedId);
+                refreshTableContents(selectedTable); // Odświeżanie zawartości tabeli
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a table and a word to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a table and an entry to delete.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     

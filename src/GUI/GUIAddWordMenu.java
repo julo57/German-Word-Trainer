@@ -96,7 +96,7 @@ public class GUIAddWordMenu extends JFrame {
 
             wgbc.gridx = 0;
             wgbc.gridy = 0;
-            wordPanel.add(new JLabel("Słowo " + (i + 1) + ": "), wgbc);
+            wordPanel.add(new JLabel("Słowo do Dodanie  " + (i + 1) + ": "), wgbc);
 
             wgbc.gridx = 1;
             wordPanel.add(articleComboBoxes[i], wgbc);

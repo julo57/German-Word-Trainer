@@ -3,10 +3,11 @@ package src.GUI;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import src.DatabaseOperations;
 
 public class GUIMainMenu extends JFrame {
     private Controlers controlers;
-
+    private DatabaseOperations databaseOperations = new DatabaseOperations();
     public GUIMainMenu(Controlers controlers) {
         // Set Nimbus Look and Feel
         try {
@@ -67,11 +68,13 @@ public class GUIMainMenu extends JFrame {
         gbc.gridy++;
         panel.add(learButton, gbc);
 
+        
+
         // Add action listeners
         addButton.addActionListener(e -> controlers.openAddWordMenu());
         viewButton.addActionListener(e -> controlers.openViewWordsMenu());
         learButton.addActionListener(e -> controlers.openLearnMenu());
-
+       
         // Add panel to frame
         add(panel);
 

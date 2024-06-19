@@ -36,15 +36,31 @@ public class DatabaseOperations {
         }
     }
 
-    public static void deleteTable() {
-        String sql = "DROP TABLE IF EXISTS users";
-
+    public static void deleteTable(String tableName) {
+        String sql = "DROP TABLE IF EXISTS " + tableName;
+    
         try (Connection conn = DatabaseConnection.connect();
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Tabela 'users' została usunięta.");
+            System.out.println("Tabela '" + tableName + "' została usunięta.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        
+    }
+
+    public static void deleteRowFromTable(String tableName, String id) {
+        String sql = "DELETE FROM " + tableName + " WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(id)); // Konwersja id z String na int
+            pstmt.executeUpdate();
+            System.out.println("Wiersz o id " + id + " został usunięty z tabeli " + tableName + ".");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Błąd formatu ID: " + e.getMessage());
         }
     }
 }
